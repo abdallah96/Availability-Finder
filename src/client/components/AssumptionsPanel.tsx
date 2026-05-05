@@ -5,10 +5,12 @@ interface AssumptionsPanelProps {
 export function AssumptionsPanel({ assumptions }: AssumptionsPanelProps) {
   return (
     <aside className="assumptions">
-      <strong>Scope choices</strong>
-      {assumptions.map((assumption) => (
-        <span key={assumption}>{assumption}</span>
-      ))}
+      <h3>Rules</h3>
+      <ul>
+        {assumptions.map((assumption) => (
+          <li key={assumption}>{assumption}</li>
+        ))}
+      </ul>
     </aside>
   );
 }

@@ -12,11 +12,8 @@ export function EventTimeline({ people, events, selectedIds }: EventTimelineProp
   return (
     <section className="panel event-panel">
       <div className="section-heading">
-        <span>3</span>
-        <div>
-          <h2>Calendar Events</h2>
-          <p>Messy data is shown as received, then cleaned on the server.</p>
-        </div>
+        <h2>Calendars (raw)</h2>
+        <p>As stored; invalid rows are excluded from availability.</p>
       </div>
 
       <div className="timeline">
@@ -35,7 +32,7 @@ export function EventTimeline({ people, events, selectedIds }: EventTimelineProp
                     <span>
                       {event.start ?? "Missing start"} - {event.end ?? "Missing end"}
                     </span>
-                    {isInvalidEvent(event) ? <small>Needs validation</small> : null}
+                    {isInvalidEvent(event) ? <small>Invalid</small> : null}
                   </article>
                 ))}
             </div>

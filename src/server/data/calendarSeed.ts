@@ -6,36 +6,36 @@ export const people: Person[] = [
   {
     id: "greta",
     name: "Greta",
-    role: "Product Lead",
-    color: "#ff9f00",
+    role: "People Partner",
+    color: "#c2410c",
     workingHours: { start: "09:00", end: "17:00" }
   },
   {
     id: "abdallah",
     name: "Abdallah",
-    role: "Frontend Engineer",
-    color: "#ff6b00",
+    role: "Full-stack TypeScript developer",
+    color: "#1c1917",
     workingHours: { start: "10:00", end: "18:00" }
   },
   {
     id: "habib",
     name: "Habib",
-    role: "Backend Engineer",
-    color: "#f7c948",
+    role: "Team Lead",
+    color: "#b45309",
     workingHours: { start: "08:30", end: "16:30" }
   },
   {
     id: "leon",
     name: "Leon",
-    role: "Designer",
-    color: "#2d2f36",
+    role: "HR",
+    color: "#57534e",
     workingHours: { start: "11:00", end: "19:00" }
   },
   {
     id: "timmo",
-    name: "Timmo",
-    role: "QA Engineer",
-    color: "#4b5563",
+    name: "Timo",
+    role: "Staff Engineer",
+    color: "#44403c",
     workingHours: { start: "09:30", end: "15:30" }
   }
 ];
@@ -50,8 +50,8 @@ export const calendarEvents: CalendarEvent[] = [
   { id: "evt-7", personId: "habib", title: "Database maintenance", start: "08:45", end: "09:30" },
   { id: "evt-8", personId: "habib", title: "API pairing", start: "13:30", end: "14:45" },
   { id: "evt-9", personId: "habib", title: "Broken import", start: "15:30", end: "14:50" },
-  { id: "evt-10", personId: "leon", title: "Design critique", start: "11:30", end: "12:30" },
-  { id: "evt-11", personId: "leon", title: "Prototype testing", start: "16:00", end: "17:00" },
+  { id: "evt-10", personId: "leon", title: "Policy briefing", start: "11:30", end: "12:30" },
+  { id: "evt-11", personId: "leon", title: "Hiring sync", start: "16:00", end: "17:00" },
   { id: "evt-12", personId: "leon", title: "Missing finish", start: "14:00" },
   { id: "evt-13", personId: "timmo", title: "Regression plan", start: "09:30", end: "10:15" },
   { id: "evt-14", personId: "timmo", start: "12:00", end: "12:45", location: "Remote" },

@@ -10,14 +10,11 @@ export function SlotResults({ availability, loading, error }: SlotResultsProps) 
   return (
     <section className="panel result-panel">
       <div className="section-heading">
-        <span>4</span>
-        <div>
-          <h2>Matching Slots</h2>
-          <p>Everyone selected is free for the full duration.</p>
-        </div>
+        <h2>Slots</h2>
+        <p>Everyone selected is free for the full block.</p>
       </div>
 
-      {loading ? <div className="empty-state">Finding the cleanest options...</div> : null}
+      {loading ? <div className="empty-state">Calculating…</div> : null}
       {error ? <div className="error-state">{error}</div> : null}
 
       {!loading && !error && availability ? (
@@ -25,7 +22,8 @@ export function SlotResults({ availability, loading, error }: SlotResultsProps) 
           <div className="result-summary">
             <strong>{availability.slots.length}</strong>
             <span>
-              slots found for {availability.durationMinutes} minutes on {availability.date}
+              {availability.slots.length === 1 ? "slot" : "slots"} · {availability.durationMinutes} min ·{" "}
+              {availability.date}
             </span>
           </div>
 
@@ -33,9 +31,8 @@ export function SlotResults({ availability, loading, error }: SlotResultsProps) 
             {availability.slots.length > 0 ? (
               availability.slots.map((slot) => (
                 <article className="slot-card" key={`${slot.start}-${slot.end}`}>
-                  <span>{slot.start}</span>
-                  <strong>{slot.label}</strong>
-                  <small>Works for {availability.selectedPeople.map((person) => person.name).join(", ")}</small>
+                  <span className="time-range">{slot.label}</span>
+                  <small>{availability.selectedPeople.map((person) => person.name).join(", ")}</small>
                 </article>
               ))
             ) : (
@@ -45,7 +42,7 @@ export function SlotResults({ availability, loading, error }: SlotResultsProps) 
 
           {availability.ignoredEvents.length > 0 ? (
             <div className="warning-box">
-              <strong>Ignored messy events</strong>
+              <strong>Excluded from search</strong>
               {availability.ignoredEvents.map((issue) => (
                 <span key={`${issue.personId}-${issue.eventId}`}>
                   {issue.eventId}: {issue.message}

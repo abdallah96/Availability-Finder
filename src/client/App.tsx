@@ -83,31 +83,32 @@ export function App() {
 
   return (
     <main>
-      <header className="hero">
-        <nav>
-          <img src="/tenhil-logo.png" alt="Tenhil" />
-          <span>Availability Finder</span>
-        </nav>
-        <div className="hero-copy">
-          <p>Clean meeting slots from messy calendars</p>
-          <h1>Find the first times where everyone can actually meet.</h1>
-          <span>
-            Built around Greta, Abdallah, Habib, Leon and Timmo with overlapping events, invalid times, missing fields and
-            different working hours.
-          </span>
-        </div>
-      </header>
+      <div className="app-shell">
+        <header className="app-header">
+          <div className="app-header-brand">
+            <img src="/tenhil-logo.png" alt="Tenhil" width={140} height={40} />
+            <div className="app-header-titles">
+              <h1>Availability</h1>
+              <p>
+                One-day view. Pick people and a duration; the server merges overlaps, clips to working hours, and drops
+                invalid rows.
+              </p>
+            </div>
+          </div>
+          <div className="app-meta">Sample day: 2026-05-05</div>
+        </header>
 
-      <div className="layout">
-        <div className="controls">
-          <PersonSelector people={people} selectedIds={selectedIds} onToggle={togglePerson} />
-          <DurationPicker durationMinutes={durationMinutes} onChange={setDurationMinutes} />
-          <AssumptionsPanel assumptions={assumptions} />
-        </div>
+        <div className="layout">
+          <div className="controls">
+            <PersonSelector people={people} selectedIds={selectedIds} onToggle={togglePerson} />
+            <DurationPicker durationMinutes={durationMinutes} onChange={setDurationMinutes} />
+            <AssumptionsPanel assumptions={assumptions} />
+          </div>
 
-        <div className="workspace">
-          <EventTimeline people={people} events={events} selectedIds={selectedIds} />
-          <SlotResults availability={availability} loading={loadingAvailability} error={error} />
+          <div className="workspace">
+            <EventTimeline people={people} events={events} selectedIds={selectedIds} />
+            <SlotResults availability={availability} loading={loadingAvailability} error={error} />
+          </div>
         </div>
       </div>
     </main>

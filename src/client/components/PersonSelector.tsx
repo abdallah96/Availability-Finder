@@ -10,11 +10,8 @@ export function PersonSelector({ people, selectedIds, onToggle }: PersonSelector
   return (
     <section className="panel">
       <div className="section-heading">
-        <span>1</span>
-        <div>
-          <h2>People</h2>
-          <p>Select the required attendees.</p>
-        </div>
+        <h2>Attendees</h2>
+        <p>Required for the slot search.</p>
       </div>
 
       <div className="person-grid">
@@ -27,9 +24,9 @@ export function PersonSelector({ people, selectedIds, onToggle }: PersonSelector
               <span>
                 <strong>{person.name}</strong>
                 <small>{person.role}</small>
-                <em>
-                  {person.workingHours.start} - {person.workingHours.end}
-                </em>
+                <span className="hours">
+                  {person.workingHours.start}–{person.workingHours.end}
+                </span>
               </span>
             </label>
           );
