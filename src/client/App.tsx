@@ -1,17 +1,17 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchAvailability, fetchEvents, fetchPeople } from "./api/client";
-import { AssumptionsPanel } from "./components/AssumptionsPanel";
 import { DurationPicker } from "./components/DurationPicker";
 import { EventTimeline } from "./components/EventTimeline";
 import { PersonSelector } from "./components/PersonSelector";
 import { SlotResults } from "./components/SlotResults";
+import { StartupLoader } from "./components/StartupLoader";
 import type { AvailabilityResponse, CalendarEvent, Person, PersonId } from "../shared/types";
 
-const defaultAssumptions = [
-  "One-day schedule, no recurring events.",
-  "Times use local 24-hour HH:mm format.",
-  "Invalid events are ignored and reported instead of blocking the search."
-];
+const startupMinMs = 2500;
+
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 export function App() {
   const [people, setPeople] = useState<Person[]>([]);
@@ -21,21 +21,31 @@ export function App() {
   const [availability, setAvailability] = useState<AvailabilityResponse | null>(null);
   const [loadingAvailability, setLoadingAvailability] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [startupLoading, setStartupLoading] = useState(true);
+
+  const logoSrc = `${import.meta.env.BASE_URL}tenhil-logo.png`;
 
   useEffect(() => {
     let mounted = true;
 
-    Promise.all([fetchPeople(), fetchEvents()])
+    Promise.all([fetchPeople(), fetchEvents(), delay(startupMinMs)])
       .then(([peopleResult, eventsResult]) => {
         if (!mounted) {
           return;
         }
         setPeople(peopleResult);
         setEvents(eventsResult);
-        setSelectedIds(peopleResult.map((person) => person.id));
       })
       .catch((reason: unknown) => {
+        if (!mounted) {
+          return;
+        }
         setError(reason instanceof Error ? reason.message : "Could not load calendar data.");
+      })
+      .finally(() => {
+        if (mounted) {
+          setStartupLoading(false);
+        }
       });
 
     return () => {
@@ -75,34 +85,22 @@ export function App() {
     };
   }, [durationMinutes, selectedIds]);
 
-  const assumptions = useMemo(() => availability?.assumptions ?? defaultAssumptions, [availability]);
-
   function togglePerson(personId: PersonId) {
     setSelectedIds((current) => (current.includes(personId) ? current.filter((id) => id !== personId) : [...current, personId]));
   }
 
   return (
     <main>
+      {startupLoading ? <StartupLoader /> : null}
       <div className="app-shell">
         <header className="app-header">
-          <div className="app-header-brand">
-            <img src="/tenhil-logo.png" alt="Tenhil" width={140} height={40} />
-            <div className="app-header-titles">
-              <h1>Availability</h1>
-              <p>
-                One-day view. Pick people and a duration; the server merges overlaps, clips to working hours, and drops
-                invalid rows.
-              </p>
-            </div>
-          </div>
-          <div className="app-meta">Sample day: 2026-05-05</div>
+          <img alt="Tenhil" className="app-header-logo" height={40} src={logoSrc} width={140} />
         </header>
 
         <div className="layout">
           <div className="controls">
-            <PersonSelector people={people} selectedIds={selectedIds} onToggle={togglePerson} />
+            <PersonSelector people={people} selectedIds={selectedIds} onSelectAll={() => setSelectedIds(people.map((p) => p.id))} onToggle={togglePerson} />
             <DurationPicker durationMinutes={durationMinutes} onChange={setDurationMinutes} />
-            <AssumptionsPanel assumptions={assumptions} />
           </div>
 
           <div className="workspace">

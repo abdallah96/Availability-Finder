@@ -4,14 +4,21 @@ interface PersonSelectorProps {
   people: Person[];
   selectedIds: PersonId[];
   onToggle: (personId: PersonId) => void;
+  onSelectAll: () => void;
 }
 
-export function PersonSelector({ people, selectedIds, onToggle }: PersonSelectorProps) {
+export function PersonSelector({ people, selectedIds, onSelectAll, onToggle }: PersonSelectorProps) {
   return (
     <section className="panel">
       <div className="section-heading">
         <h2>Attendees</h2>
         <p>Required for the slot search.</p>
+      </div>
+
+      <div className="duration-presets person-select-all">
+        <button disabled={people.length === 0} onClick={onSelectAll} type="button">
+          Select all
+        </button>
       </div>
 
       <div className="person-grid">

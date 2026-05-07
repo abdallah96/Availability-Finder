@@ -39,17 +39,6 @@ export function SlotResults({ availability, loading, error }: SlotResultsProps) 
               <div className="empty-state">No shared availability for the current selection.</div>
             )}
           </div>
-
-          {availability.ignoredEvents.length > 0 ? (
-            <div className="warning-box">
-              <strong>Excluded from search</strong>
-              {availability.ignoredEvents.map((issue) => (
-                <span key={`${issue.personId}-${issue.eventId}`}>
-                  {issue.eventId}: {issue.message}
-                </span>
-              ))}
-            </div>
-          ) : null}
         </>
       ) : null}
     </section>
