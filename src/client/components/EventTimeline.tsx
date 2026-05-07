@@ -17,6 +17,9 @@ export function EventTimeline({ people, events, selectedIds }: EventTimelineProp
       </div>
 
       <div className="timeline">
+        {visiblePeople.length === 0 ? (
+          <div className="empty-state empty-state-guidance">Select at least one attendee to display their calendar events.</div>
+        ) : null}
         {visiblePeople.map((person) => (
           <div className="timeline-row" key={person.id}>
             <div className="timeline-person">

@@ -12,7 +12,9 @@ export function StartupLoader() {
             height={40}
           />
         </div>
-        <p className="startup-loader-message">Thank you for reviewing my task.</p>
+        <p className="startup-loader-message">
+          <span className="startup-loader-message-emphasis">Thank you for reviewing my task.</span>
+        </p>
       </div>
     </div>
   );

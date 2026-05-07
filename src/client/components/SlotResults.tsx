@@ -4,9 +4,10 @@ interface SlotResultsProps {
   availability: AvailabilityResponse | null;
   loading: boolean;
   error: string | null;
+  hasSelection: boolean;
 }
 
-export function SlotResults({ availability, loading, error }: SlotResultsProps) {
+export function SlotResults({ availability, loading, error, hasSelection }: SlotResultsProps) {
   return (
     <section className="panel result-panel">
       <div className="section-heading">
@@ -14,6 +15,7 @@ export function SlotResults({ availability, loading, error }: SlotResultsProps) 
         <p>Everyone selected is free for the full block.</p>
       </div>
 
+      {!hasSelection ? <div className="empty-state empty-state-guidance">Select attendees to calculate shared available slots.</div> : null}
       {loading ? <div className="empty-state">Calculating…</div> : null}
       {error ? <div className="error-state">{error}</div> : null}
 

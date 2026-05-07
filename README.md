@@ -1,15 +1,25 @@
-# Tenhil Availability Finder
+# Availability Finder
 
-A small full stack TypeScript app that finds possible meeting slots from messy calendar input.
+Small full-stack TypeScript app for finding common meeting slots from messy calendar data.
 
-## Stack
+Live: https://availability-finder-demo.vercel.app/  
+Repo: https://github.com/abdallah96/Availability-Finder
 
-- React + Vite frontend
-- Express backend
-- Shared TypeScript types and time helpers
-- Vitest coverage for the availability engine
+## What it does
 
-## Run Locally
+- Shows people and their events
+- Lets you select attendees
+- Lets you choose meeting duration
+- Returns time slots where everyone selected is free
+
+## Tech
+
+- Frontend: React + Vite + TypeScript
+- Backend: Express + TypeScript
+- Shared types/helpers in `src/shared`
+- Tests: Vitest (availability logic)
+
+## Run
 
 ```bash
 npm install
@@ -21,35 +31,39 @@ Open `http://localhost:5173`.
 ## Scripts
 
 ```bash
-npm run dev        # Vite frontend + Express API
-npm run test       # availability service tests
-npm run typecheck  # TypeScript checks
-npm run build      # typecheck + frontend production build
-npm start          # serve the production build through Express
+npm run dev
+npm run test
+npm run typecheck
+npm run build
+npm start
 ```
 
-## Scope And Assumptions
+## Assumptions
 
-The app keeps the assignment intentionally small:
+- One day only
+- Local `HH:mm` times
+- 15-minute step for slot generation
+- No recurring events
+- Seed data is in memory
 
-- One-day schedule only.
-- Local `HH:mm` times.
-- Seed data is stored in memory. `PersonId` is a literal union of the five seeded people because the data set is fixed; swap it for `string` if you wire up a real source.
-- Working hours are set per person and can differ between people. Each person's busy events are clipped to their own workday before the search runs.
-- Recurring events are ignored.
-- Meeting starts are generated every 15 minutes.
-- Overlapping or touching busy events are merged before free time is calculated.
-- Invalid events are ignored and reported in the UI.
+## How messy input is handled
 
-## Messy Input Handling
+I intentionally included messy events in seed data (out of order, overlap, missing fields, invalid times).
 
-The seed data includes out-of-order events, overlaps, missing optional titles, a missing end time, invalid clock values and an event whose start is after its end. The backend validates those events before searching, returns usable slots, and sends the ignored event list back to the client.
+Current behavior:
 
-## Project Shape
+- Invalid events are ignored for matching
+- Ignored events are returned in the API response and shown in UI
+- Overlapping/touching busy ranges are merged
+- Each person uses their own working hours
 
-```text
-src/
-  client/   React UI, components, API client
-  server/   Express API, seed data, availability service
-  shared/   Types and time utilities used by both sides
-```
+## Notes
+
+I kept scope small on purpose and focused on clean structure and correctness of the matching logic.
+
+Recent UI polish:
+
+- Clearer empty states when nothing is selected
+- Centered app title and improved header
+- Distinct color per person
+- Startup loader text underline animation

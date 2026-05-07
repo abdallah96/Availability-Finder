@@ -14,28 +14,28 @@ export const people: Person[] = [
     id: "abdallah",
     name: "Abdallah",
     role: "Full-stack TypeScript developer",
-    color: "#1c1917",
+    color: "#2563eb",
     workingHours: { start: "10:00", end: "18:00" }
   },
   {
     id: "habib",
     name: "Habib",
     role: "Team Lead",
-    color: "#b45309",
+    color: "#16a34a",
     workingHours: { start: "08:30", end: "16:30" }
   },
   {
     id: "leon",
     name: "Leon",
     role: "HR",
-    color: "#57534e",
+    color: "#9333ea",
     workingHours: { start: "11:00", end: "19:00" }
   },
   {
     id: "timmo",
     name: "Timo",
     role: "Staff Engineer",
-    color: "#44403c",
+    color: "#0f766e",
     workingHours: { start: "09:30", end: "15:30" }
   }
 ];

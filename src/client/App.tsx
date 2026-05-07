@@ -95,6 +95,10 @@ export function App() {
       <div className="app-shell">
         <header className="app-header">
           <img alt="Tenhil" className="app-header-logo" height={40} src={logoSrc} width={140} />
+          <div className="app-header-copy">
+            <h1>Availability Finder</h1>
+          </div>
+          <div aria-hidden className="app-header-spacer" />
         </header>
 
         <div className="layout">
@@ -105,7 +109,7 @@ export function App() {
 
           <div className="workspace">
             <EventTimeline people={people} events={events} selectedIds={selectedIds} />
-            <SlotResults availability={availability} loading={loadingAvailability} error={error} />
+            <SlotResults availability={availability} loading={loadingAvailability} error={error} hasSelection={selectedIds.length > 0} />
           </div>
         </div>
       </div>
