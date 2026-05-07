@@ -34,10 +34,10 @@ The app keeps the assignment intentionally small:
 
 - One-day schedule only.
 - Local `HH:mm` times.
-- Seed data is stored in memory.
+- Seed data is stored in memory. `PersonId` is a literal union of the five seeded people because the data set is fixed; swap it for `string` if you wire up a real source.
+- Working hours are set per person and can differ between people. Each person's busy events are clipped to their own workday before the search runs.
 - Recurring events are ignored.
 - Meeting starts are generated every 15 minutes.
-- Events outside a person's working hours are clipped to that person's workday.
 - Overlapping or touching busy events are merged before free time is calculated.
 - Invalid events are ignored and reported in the UI.
 
@@ -53,4 +53,3 @@ src/
   server/   Express API, seed data, availability service
   shared/   Types and time utilities used by both sides
 ```
-# Availability-Finder

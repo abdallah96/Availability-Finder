@@ -29,9 +29,11 @@ export function findAvailability(request: AvailabilityRequest): AvailabilityResp
     return subtractBusyRanges(parseWorkingHours(person), mergeRanges(events.map(({ range }) => range)));
   });
 
-  const commonFreeRanges = freeByPerson.reduce<MinuteRange[]>((current, ranges) => intersectRanges(current, ranges), [
-    parseWorkingHours(selectedPeople[0])
-  ]);
+  const [firstFree, ...restFree] = freeByPerson;
+  const commonFreeRanges = restFree.reduce<MinuteRange[]>(
+    (current, ranges) => intersectRanges(current, ranges),
+    firstFree
+  );
 
   const slots = expandRangesToSlots(commonFreeRanges, request.durationMinutes);
 
